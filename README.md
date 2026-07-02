@@ -1,6 +1,6 @@
 # Nudge AI - Coach Financiero Conductual
 
-> **Estado del Proyecto:** 🚧 En desarrollo activo
+> **Estado del Proyecto:** 🚀 Prototipo Funcional Completado
 
 Nudge AI es un agente de Inteligencia Artificial especializado en finanzas conductuales (*Behavioral Finance*). A diferencia de las aplicaciones bancarias transaccionales estándar, este proyecto está diseñado para funcionar como un coach financiero personal, analizando patrones y enviando "nudges" (estímulos positivos) empáticos en tiempo real para ayudar a los usuarios a evitar gastos impulsivos por estrés y mejorar su toma de decisiones financieras.
 
@@ -12,16 +12,17 @@ Nudge AI es un agente de Inteligencia Artificial especializado en finanzas condu
 
 ## 🛠️ Tecnologías y Arquitectura
 
-Este proyecto está construido con una **Arquitectura Multi-Agente** con memoria aumentada:
+Este proyecto está construido con una **Arquitectura Multi-Agente** con memoria aumentada y una interfaz web interactiva:
 
+* **Interfaz de Usuario:** Streamlit (Web App interactiva en tiempo real).
 * **Lenguaje:** Python 3.10+
-* **Orquestación:** LangChain (Cadenas, Output Parsers y Enrutamiento Dinámico)
-* **Motor de IA:** Google Gemini 3.5 Flash (Generación de texto y triaje)
+* **Orquestación:** LangChain (Cadenas, Output Parsers y Enrutamiento Dinámico).
+* **Motor de IA:** Google Gemini 3.5 Flash (Generación de texto y triaje).
 * **Memoria RAG:** FAISS (Base de datos vectorial) + HuggingFace (`all-MiniLM-L6-v2` para Embeddings locales de alto rendimiento).
-* **Validación Estructural:** Pydantic (Para garantizar el formato JSON exacto)
+* **Validación Estructural:** Pydantic (Para garantizar el formato JSON exacto).
 * **Seguridad:** `python-dotenv` para gestión de credenciales.
 
-## 🚀 Próximos Pasos (Roadmap)
+## 🚀 Roadmap del Prototipo
 
 - [x] Conexión segura con el motor LLM (Gemini).
 - [x] Implementación de "Nudges" conductuales.
@@ -29,7 +30,7 @@ Este proyecto está construido con una **Arquitectura Multi-Agente** con memoria
 - [x] Enrutamiento Multi-Agente.
 - [x] Implementación de memoria RAG para lectura de bibliografía conductual (Kahneman, Thaler).
 - [x] Integración del Agente Principal con la Memoria RAG.
-- [ ] Desarrollo de Interfaz de Usuario interactiva (Streamlit).
+- [x] Desarrollo de Interfaz de Usuario interactiva (Streamlit).
 
 ---
 *Desarrollado con enfoque en la innovación financiera desde Bolivia.*
