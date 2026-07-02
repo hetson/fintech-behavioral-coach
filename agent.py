@@ -6,6 +6,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
+# ¡LA MAGIA DE LA INTEGRACIÓN! Importamos nuestra memoria RAG
+from memoria_rag import buscar_contexto
+
 # 1. Cargar credenciales
 load_dotenv()
 
@@ -35,28 +38,40 @@ def inicializar_motor_ia(temperatura=0.0):
     )
 
 def generar_nudge(mensaje_usuario):
-    """Genera un consejo empático cuando se detecta un gasto impulsivo."""
-    print("\n[Activando Motor de Coaching Conductual...]")
+    """Genera un consejo empático fundamentado en la ciencia conductual (RAG)."""
     
-    # Instanciamos un modelo diferente: temperatura 0.5 para mayor empatía y creatividad
+    print("\n[Buscando en la literatura científica conductual (Kahneman, Thaler)...]")
+    # 1. Recuperamos el conocimiento de nuestros libros usando la consulta del usuario
+    contexto_cientifico = buscar_contexto(mensaje_usuario, k=2) # Traemos los 2 fragmentos más relevantes
+    
+    print("[Activando Motor de Coaching de Nudge AI...]")
+    # 2. Instanciamos el modelo creativo
     llm_creativo = inicializar_motor_ia(temperatura=0.5)
     
+    # 3. Diseñamos el Prompt inyectando la ciencia
     prompt_nudge = ChatPromptTemplate.from_template(
-        "Eres Nudge AI, un coach financiero conductual. "
-        "El usuario está a punto de realizar un gasto impulsivo debido a una emoción. "
+        "Eres Nudge AI, un coach financiero conductual experto.\n"
+        "El usuario está a punto de realizar un gasto impulsivo debido a una emoción.\n"
         "Tu objetivo es brindarle una respuesta breve, muy empática, sin juzgarlo, "
-        "y ofrecerle una alternativa o un anclaje conductual (ej. la regla de las 24 horas, o calcular las horas de trabajo que cuesta). "
-        "Háblale de tú a tú, con un tono amable y profesional.\n\n"
+        "y ofrecerle un 'nudge' o anclaje conductual para frenar el impulso.\n\n"
+        "IMPORTANTE: Utiliza los siguientes fragmentos de literatura científica (Economía Conductual) "
+        "para fundamentar tu consejo, pero explícalo de forma sencilla y amigable para el usuario:\n\n"
+        "--- LITERATURA RECUPERADA ---\n"
+        "{contexto}\n"
+        "-----------------------------\n\n"
         "Mensaje del usuario: {mensaje}\n\n"
-        "Respuesta del Coach:"
+        "Respuesta de Nudge AI:"
     )
     
-    # Usamos StrOutputParser porque aquí sí queremos texto legible, no JSON
+    # 4. Construimos y ejecutamos la cadena
     cadena_nudge = prompt_nudge | llm_creativo | StrOutputParser()
-    return cadena_nudge.invoke({"mensaje": mensaje_usuario})
+    return cadena_nudge.invoke({
+        "contexto": contexto_cientifico, 
+        "mensaje": mensaje_usuario
+    })
 
 if __name__ == "__main__":
-    print("Iniciando el Enrutador de Nudge AI...")
+    print("Iniciando el Enrutador de Nudge AI con Memoria RAG...")
     try:
         # Inicializar el modelo estructurado para el triaje (temperatura 0.0)
         llm_triaje = inicializar_motor_ia(temperatura=0.0).with_structured_output(TriajeFinanciero)
@@ -73,8 +88,8 @@ if __name__ == "__main__":
         
         cadena_triaje = prompt_triaje | llm_triaje
 
-        # --- PRUEBA CONTEXTUALIZADA DE ESTRÉS ---
-        mensaje_prueba = "Tuve una semana pesadísima, quiero irme a gastar todos mis ahorros de fiesta y compras por el centro de Cochabamba para olvidarme de todo."
+        # --- PRUEBA CONTEXTUALIZADA ---
+        mensaje_prueba = "Tuve una semana pesadísima en el trabajo, me siento agotado y creo que me voy a gastar todos mis ahorros comprándome el último celular de gama alta para sentirme mejor de una vez."
         
         print(f"\nUsuario: '{mensaje_prueba}'")
         print("Analizando intención...")
@@ -85,13 +100,13 @@ if __name__ == "__main__":
 
         # 2. Lógica de Enrutamiento Condicional
         if resultado_triaje.decision == "NUDGE_REFLEXIVO":
-            # Si es impulsivo, generamos el consejo
+            # ¡AQUÍ SUCEDE LA MAGIA!
             consejo = generar_nudge(mensaje_prueba)
-            print("\n" + "="*60)
-            print("🧠 RESPUESTA DE NUDGE AI:")
-            print("="*60)
+            print("\n" + "="*70)
+            print("🧠 RESPUESTA CIENTÍFICA DE NUDGE AI:")
+            print("="*70)
             print(consejo)
-            print("="*60)
+            print("="*70)
             
         elif resultado_triaje.decision == "EXPLORAR_CONTEXTO":
             print("\nSistema: Por favor, cuéntame un poco más. Me faltan estos detalles:", resultado_triaje.campos_faltantes)

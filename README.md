@@ -28,7 +28,7 @@ Este proyecto está construido con una **Arquitectura Multi-Agente** con memoria
 - [x] Agente de Triaje Cognitivo (Clasificador de intenciones).
 - [x] Enrutamiento Multi-Agente.
 - [x] Implementación de memoria RAG para lectura de bibliografía conductual (Kahneman, Thaler).
-- [ ] Integración del agente de triaje con la memoria RAG.
+- [x] Integración del Agente Principal con la Memoria RAG.
 - [ ] Desarrollo de Interfaz de Usuario interactiva (Streamlit).
 
 ---
