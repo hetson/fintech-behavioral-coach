@@ -10,24 +10,24 @@ Nudge AI es un agente de Inteligencia Artificial especializado en finanzas condu
 * **Educación Financiera:** Integrar conceptos de economía conductual para transformar los hábitos de gasto.
 * **Innovación FinTech:** Aplicar modelos de lenguaje de vanguardia en el análisis de riesgo y comportamiento dentro del ecosistema financiero.
 
-### 🛠️ Tecnologías Utilizadas (Hasta el momento)
+## 🛠️ Tecnologías y Arquitectura
 
-Este proyecto está siendo construido desde cero utilizando una arquitectura modular de IA:
+Este proyecto está construido con una **Arquitectura Multi-Agente** para separar la lógica de clasificación analítica de la generación empática de texto:
 
 * **Lenguaje:** Python 3.10+
-* **Framework LLM:** LangChain (Orquestación de cadenas y output parsers)
-* **Motor de IA:** Google Gemini 3.5 Flash (Baja latencia para respuestas interactivas en tiempo real)
-* **Validación de Datos:** Pydantic (Para estructurar y garantizar el formato JSON de las decisiones del agente)
-* **Gestión de Entorno:** `python-dotenv` para seguridad de credenciales.
-* **Control de Versiones:** Git & GitHub.
+* **Orquestación:** LangChain (Cadenas, Output Parsers y Enrutamiento Dinámico)
+* **Motor de IA:** Google Gemini 3.5 Flash (Ajuste de temperatura dinámico según el agente)
+* **Validación Estructural:** Pydantic (Para garantizar el formato JSON exacto en las decisiones de triaje)
+* **Seguridad:** `python-dotenv` para gestión de credenciales locales.
 
 ## 🚀 Próximos Pasos (Roadmap)
 
 - [x] Conexión segura con el motor LLM (Gemini).
-- [x] Implementación de "Nudges" conductuales mediante System Prompts.
-- [x] Desarrollo de Agente de Triaje Cognitivo (Clasificador de intenciones con salidas estructuradas).
+- [x] Implementación de "Nudges" conductuales.
+- [x] Agente de Triaje Cognitivo (Clasificador de intenciones con Pydantic).
+- [x] Enrutamiento Multi-Agente (Activación condicional del coach basada en el triaje).
 - [ ] Desarrollo de Interfaz de Usuario interactiva.
-- [ ] Implementación de memoria RAG para lectura de normativas y perfiles de riesgo.
+- [ ] Implementación de memoria RAG para lectura de normativas financieras.
 
 ---
 *Desarrollado con enfoque en la innovación financiera desde Cochabamba, Bolivia.*
