@@ -12,22 +12,24 @@ Nudge AI es un agente de Inteligencia Artificial especializado en finanzas condu
 
 ## 🛠️ Tecnologías y Arquitectura
 
-Este proyecto está construido con una **Arquitectura Multi-Agente** para separar la lógica de clasificación analítica de la generación empática de texto:
+Este proyecto está construido con una **Arquitectura Multi-Agente** con memoria aumentada:
 
 * **Lenguaje:** Python 3.10+
 * **Orquestación:** LangChain (Cadenas, Output Parsers y Enrutamiento Dinámico)
-* **Motor de IA:** Google Gemini 3.5 Flash (Ajuste de temperatura dinámico según el agente)
-* **Validación Estructural:** Pydantic (Para garantizar el formato JSON exacto en las decisiones de triaje)
-* **Seguridad:** `python-dotenv` para gestión de credenciales locales.
+* **Motor de IA:** Google Gemini 3.5 Flash (Generación de texto y triaje)
+* **Memoria RAG:** FAISS (Base de datos vectorial) + HuggingFace (`all-MiniLM-L6-v2` para Embeddings locales de alto rendimiento).
+* **Validación Estructural:** Pydantic (Para garantizar el formato JSON exacto)
+* **Seguridad:** `python-dotenv` para gestión de credenciales.
 
 ## 🚀 Próximos Pasos (Roadmap)
 
 - [x] Conexión segura con el motor LLM (Gemini).
 - [x] Implementación de "Nudges" conductuales.
-- [x] Agente de Triaje Cognitivo (Clasificador de intenciones con Pydantic).
-- [x] Enrutamiento Multi-Agente (Activación condicional del coach basada en el triaje).
-- [ ] Desarrollo de Interfaz de Usuario interactiva.
-- [ ] Implementación de memoria RAG para lectura de normativas financieras.
+- [x] Agente de Triaje Cognitivo (Clasificador de intenciones).
+- [x] Enrutamiento Multi-Agente.
+- [x] Implementación de memoria RAG para lectura de bibliografía conductual (Kahneman, Thaler).
+- [ ] Integración del agente de triaje con la memoria RAG.
+- [ ] Desarrollo de Interfaz de Usuario interactiva (Streamlit).
 
 ---
-*Desarrollado con enfoque en la innovación financiera desde Cochabamba, Bolivia.*
+*Desarrollado con enfoque en la innovación financiera desde Bolivia.*
