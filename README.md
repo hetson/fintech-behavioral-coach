@@ -25,6 +25,60 @@ Este proyecto está construido con una **Arquitectura Multi-Agente** con memoria
 * **Validación Estructural:** Pydantic (Garantía de formato JSON).
 * **Seguridad:** `python-dotenv` para gestión de credenciales.
 
+## Instrucciones para Ejecutar el Proyecto
+Sigue estos pasos para clonar, configurar e iniciar el entorno localmente:
+
+Paso 1: Configurar el Entorno Virtual
+Crea y activa un entorno virtual de Python en la raíz de tu proyecto:
+
+python -m venv venv
+.\venv\Scripts\activate
+
+Paso 2: Instalar Dependencias
+Instala todas las librerías necesarias registradas en el archivo de requerimientos:
+
+pip install -r requirements.txt
+
+Paso 3: Configurar Variables de Entorno
+Crea un archivo llamado .env en la raíz del proyecto y añade tu credencial de Google:
+
+GEMINI_API_KEY=tu_api_key_aqui
+
+Paso 4: Ingesta de Datos para la Memoria RAG
+Asegúrate de colocar los archivos PDF de la literatura conductual en la carpeta ./data y ejecuta el script de indexación (este paso generará la carpeta local faiss_index/):
+
+python memoria_rag.py
+
+Paso 5: Lanzar la Aplicación Web
+Inicia el servidor local de Streamlit para interactuar con la plataforma desde tu navegador:
+
+streamlit run app.py
+
+## Ejemplos de Preguntas que el Agente Puede Responder
+El sistema procesa e interpreta consultas complejas que mezclan estrés psicológico, decisiones impulsivas o requerimientos operativos:
+
+"Tuve una semana pésima en mi trabajo y me siento súper estresado. Estoy pensando seriamente en gastarme Bs. 3000 de mis ahorros en un viaje de fin de semana para desconectarme."
+
+"Me ofrecieron una tarjeta de crédito en otra tienda y quiero sacarla para comprar ropa en oferta. ¿Qué opinas?"
+
+"Necesito retirar efectivo de mi cuenta o programar una transferencia internacional para mañana por la mañana."
+
+"Quiero saber cómo va mi progreso con el beneficio de la tasa de interés preferencial que me ofreció el banco."
+
+## Ejemplos de Respuestas Generadas por el Agente
+Caso: Intención de Gasto Emocional Cercano al Límite de Presupuesto
+Entrada del Usuario:
+
+"Me siento sumamente agotado y creo que me voy a gastar todos mis ahorros comprándome el último celular de gama alta para sentirme mejor de una vez."
+
+Respuesta de Nudge AI:
+
+"Te entiendo perfectamente; después de días intensos, es completamente natural que busques una recompensa inmediata para aliviar esa carga. Sin embargo, analizando tus datos de consumo, veo que ya has ejecutado el 90% de tu presupuesto mensual y faltan solo 8 días para la cuota de tu crédito (Bs. 1200).
+
+Científicamente, cuando estamos bajo altos niveles de estrés, nuestro Sistema 1 (la mente intuitiva y emocional) toma el control y busca gratificación instantánea, nublando nuestra planificación a largo plazo. Comprar el celular te dará un pico de felicidad momentáneo, pero el estrés regresará con fuerza cuando venza tu cuota la próxima semana.
+
+Además, ¡llevas una racha increíble de 3 meses de pago perfecto! Si mantienes tu balance estable por 3 meses más, asegurarás la reducción de tu tasa de interés en un 0.5%, lo que te ahorrará mucho dinero real en el futuro. ¿Qué te parece si aplicamos un nudge de pausa? Esperemos 48 horas antes de hacer clic en comprar. Si pasadas las dos semanas sigues sintiendo que lo necesitas con la misma urgencia, lo revisamos juntos bajo un plan estructurado. ¡Cuidemos ese progreso de nivel Plata que tanto te ha costado construir!"
+
 ## 🚀 Roadmap del Proyecto
 
 - [x] Conexión segura con el motor LLM (Gemini).
