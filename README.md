@@ -90,4 +90,6 @@ Además, ¡llevas una racha increíble de 3 meses de pago perfecto! Si mantienes
 - [x] **NUEVO:** Lógica de monitoreo preventivo de mora y sistema de recompensas.
 
 ---
+![Dashboard de Nudge AI](assets/dashboard.png)
+---
 *Desarrollado con un enfoque científico y tecnológico para la modernización financiera desde Bolivia.*
