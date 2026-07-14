@@ -91,5 +91,6 @@ Además, ¡llevas una racha increíble de 3 meses de pago perfecto! Si mantienes
 
 ---
 ![Dashboard de Nudge AI](assets/dashboard.png)
+![Dashboard de Nudge AI](assets/dashboard2.png)
 ---
 *Desarrollado con un enfoque científico y tecnológico para la modernización financiera desde Bolivia.*
