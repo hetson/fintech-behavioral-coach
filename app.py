@@ -5,47 +5,61 @@ from agent import procesar_mensaje_coach
 st.set_page_config(page_title="Nudge AI - Prevención de Riesgo", page_icon="🦉", layout="wide")
 
 # --- SIMULACIÓN DE BASE DE DATOS DEL BANCO ---
-datos_cliente = {
-    "ingreso_mensual": 5000,
-    "cuota_credito": 1200,
-    "dias_para_pago": 8,
-    "presupuesto_consumo": 1500,
-    "gasto_actual_consumo": 1350,  # ¡Está cerca del límite!
-    "meses_pago_perfecto": 3,
-    "meta_recompensa": 6 # Meses necesarios para bajar la tasa
+# EVALUACIÓN CREDITICIA (La "Foto" al Desembolso)
+evaluacion_inicial = {
+    "ingreso_declarado": 5000,
+    "capacidad_pago_aprobada": 1500,
+    "cuota_credito": 1200
 }
 
-# --- BARRA LATERAL: DASHBOARD FINANCIERO ---
+# MONITOREO EN TIEMPO REAL (La "Película" en Caja de Ahorro)
+flujo_caja_ahorro = {
+    "ingresos_reales_mes": 4800, # La realidad actual en la caja de ahorro
+    "gastos_acumulados_mes": 2900,
+    "saldo_actual": 1900,
+    "dias_para_pago": 8,
+    "meses_cumplimiento_plan": 3,
+    "meta_tasa_preferencial": 6
+}
+
+# Cálculo de desviación: ¿Cómo vamos respecto a la evaluación inicial?
+holgura_proyectada = evaluacion_inicial["ingreso_declarado"] - evaluacion_inicial["cuota_credito"]
+holgura_real = flujo_caja_ahorro["ingresos_reales_mes"] - flujo_caja_ahorro["gastos_acumulados_mes"]
+
+# --- BARRA LATERAL: DASHBOARD FINANCIERO EVOLUTIVO ---
 with st.sidebar:
-    st.header("🏦 Perfil Crediticio")
-    st.markdown("Datos monitoreados desde la Caja de Ahorro.")
+    st.header("🏦 Monitoreo Preventivo")
+    st.markdown("Seguimiento de Caja de Ahorro vs Evaluación Inicial.")
     
-    st.metric(label="Saldo Disponible (Estimado)", value=f"Bs. {datos_cliente['ingreso_mensual'] - datos_cliente['gasto_actual_consumo']}")
-    st.metric(label="Días para el pago de cuota", value=f"{datos_cliente['dias_para_pago']} días", delta="- Próximo a vencer", delta_color="inverse")
+    st.metric(label="Saldo Actual en Caja", value=f"Bs. {flujo_caja_ahorro['saldo_actual']}")
+    st.metric(label="Días para cuota", value=f"{flujo_caja_ahorro['dias_para_pago']} días", delta=f"Cuota: Bs. {evaluacion_inicial['cuota_credito']}", delta_color="inverse")
     
     st.divider()
     
-    st.subheader("📊 Control de Presupuesto")
-    porcentaje_gasto = (datos_cliente['gasto_actual_consumo'] / datos_cliente['presupuesto_consumo'])
-    st.progress(porcentaje_gasto, text=f"Consumo: {porcentaje_gasto*100:.0f}% del límite mensual")
-    if porcentaje_gasto > 0.8:
-        st.warning("⚠️ Alerta Conductual: Velocidad de gasto alta.")
+    st.subheader("📊 Control de Liquidez")
+    # Calculamos qué porcentaje de sus ingresos reales ya se ha gastado
+    porcentaje_gasto = (flujo_caja_ahorro['gastos_acumulados_mes'] / flujo_caja_ahorro['ingresos_reales_mes'])
+    
+    # st.progress requiere un float entre 0.0 y 1.0
+    st.progress(min(porcentaje_gasto, 1.0), text=f"Consumo: {porcentaje_gasto*100:.0f}% de ingresos reales")
+    if porcentaje_gasto > 0.6:
+        st.warning("⚠️ Alerta Conductual: El margen de liquidez se está reduciendo.")
         
     st.divider()
     
-    # --- SISTEMA DE RECOMPENSAS (Contrato de Ulises) ---
-    st.subheader("🏆 Plan de Recompensas")
-    st.info("Mantén tu flujo estable para desbloquear beneficios.")
-    progreso_meta = datos_cliente['meses_pago_perfecto'] / datos_cliente['meta_recompensa']
-    st.progress(progreso_meta, text=f"Racha: {datos_cliente['meses_pago_perfecto']} de {datos_cliente['meta_recompensa']} meses")
-    st.success("✨ Próxima recompensa: Reducción de 0.5% en Tasa de Interés.")
+    # --- SISTEMA DE RECOMPENSAS ---
+    st.subheader("🏆 Contrato de Compromiso")
+    st.info("Mantén un flujo estable en tu caja de ahorro para asegurar beneficios futuros.")
+    progreso_meta = flujo_caja_ahorro['meses_cumplimiento_plan'] / flujo_caja_ahorro['meta_tasa_preferencial']
+    st.progress(progreso_meta, text=f"Racha: {flujo_caja_ahorro['meses_cumplimiento_plan']} de {flujo_caja_ahorro['meta_tasa_preferencial']} meses")
+    st.success("✨ Meta: Reducción de 0.5% en Tasa de Interés.")
 
-# Creamos un string con el contexto para enviárselo a Nudge AI
+# Creamos el string con el contexto actualizado para Nudge AI
 contexto_financiero_str = (
-    f"El cliente tiene un gasto actual del {porcentaje_gasto*100:.0f}% de su presupuesto de consumo. "
-    f"Faltan {datos_cliente['dias_para_pago']} días para que pague su cuota de Bs. {datos_cliente['cuota_credito']}. "
-    f"Lleva {datos_cliente['meses_pago_perfecto']} meses de pago perfecto. Si llega a {datos_cliente['meta_recompensa']} meses, "
-    f"el banco le bajará la tasa de interés en 0.5%."
+    f"Al desembolso, el banco calculó una holgura de Bs. {holgura_proyectada}. "
+    f"Hoy, su liquidez real en la caja de ahorro es de Bs. {holgura_real}. "
+    f"Faltan {flujo_caja_ahorro['dias_para_pago']} días para pagar su cuota de Bs. {evaluacion_inicial['cuota_credito']}. "
+    f"Está a {flujo_caja_ahorro['meta_tasa_preferencial'] - flujo_caja_ahorro['meses_cumplimiento_plan']} meses de ganar una reducción de tasa de interés."
 )
 
 # --- INTERFAZ PRINCIPAL DEL CHAT ---
